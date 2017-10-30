@@ -1,0 +1,74 @@
+1、枚举类(Enum)  的值就是括号中的字符；
+   例如：
+   public enum Test{
+    DianNao("电脑");
+    private String value;
+   }
+   那么 value 的值就是 “电脑” ;
+ 
+2、可以通过在 enum 中定义一个定位方法来根据枚举的顺序位置获取其值，涉及到的方法: ordinal();
+
+3、格式化输出递增的数字可以使用 NumberFormat 的一个子类—————— DecimalFormat("格式") 来实现;
+   例如输出 0001、0002、0003 这样的数字：
+   DecimalFormat df = new DetimalFormat("000");
+   for(int i = 0; i < 10; i++){
+      df.format(i)
+   }
+
+4、同理，日期格式可以通过 SimpleDateFormat("格式") 来实现;
+
+5、字符串拼接中，String + String 与 StringBuilder 的 append() 方法性能比较：
+   ① 因为 String 是(内容)不可变的，所以 String 字符串在创建对象后其字符将不能变更
+   ② 若要使用 String 实现字符串拼接，就需要不断地创建对象
+   ③ 而StringBuilder 的 append() 方法只有在最后将 StringBuilder 转换为 String 字符串时（即 toString() 方法）才会创建 String 对象
+   ④ 但是如果 append() 的总长度超过（默认是16）一定范围时，就会创建一个新的数组;
+   
+6、正则表达式： [\u4e00-\u9fa5]+
+   表示至少匹配一个中文汉字：
+    ① 两个 unicode 值 \u4e00 和 \u9fa5 正好是 Unicode 表中的汉字的头和尾
+    ② [] 代表里边的值出现一个就可以，后边的 + 代表至少出现一次
+    ③ 合起来即至少匹配一个汉字
+    
+7、将 Timestamp 类型转换为 String 类型可以使用 SimpleDateFormat()方法：
+    String timestampString = new SimpleDateFormat("yyyy-MM-dd").format( Timestamp );
+   将 String 类型 转换为 Timestamp 类型可以使用 Date 的 valueOf() 方法：
+    Timestamp ts = new Timestamp( Date.valueOf( String ).getTime() );
+
+8、加了 try-catch 块的代码跟没有加的代码运行时的性能是一样的，没有区别；
+   区别只是加了 try-catch 块的代码在抛出异常时会有不同的处理逻辑，仅此而已。
+   
+9、在使用 easyUI 时，在加载空数据时会出现 Cannot read property 'XXXXX' of null 的异常;
+                    如果数据异常，会出现 Cannot read property 'XXXXX' of undefined 的异常
+
+10、使用集合排序时，可以使用 Collecitons.sort() 方法进行排序
+    ① 使用前需要在要排序的类中实现 Comparable<T> 接口，并重写 compareTo() 方法;
+    ② 在主程序中使用 Collections.sort( List ) 按照 compareTo() 的排序规则进行排序;
+    例如：
+      public class Test implements Comparable<Test>(){
+        ……
+        public int compareTo(){
+        排序规则
+          ……
+        }
+      }
+      
+      public static main(String[] args){
+        List<Test> list = new ArrayList();  //创建集合
+        Collections.sort(list);   //排序
+      }
+
+11、使用 easyUI 的 deleteRow() 删除行时的问题：
+      ① easyui 的 datagrid 中，每一行的位置由 index 标记
+      ② 数据由使用者在 table1 中选取，然后通过 appendRow() 方法在 table2 中动态添加选取的行
+      ③ table2 中新增加一行时，会随之携带 onclick( index ) 方法
+    问题产生：
+      ① 携带的 onclick() 方法中的 index 传递的是新行产生时所处的顺序位置，并且不会随其他行的增删而变动
+    问题现象：
+       有新添加的三行：A、B、C,其 index 分别为 0、1、2,
+       当删除 A（index == 0） 后，B 成了第一行，其 index 理应为 0,而 onclick() 传递的 index 却是1
+       造成 B 行无法删除
+    解决办法：
+      较为简单但是用户体验较差的解决办法是不传递 index 参数，而先让用户选中某行，再用 getRowIndex 获得该行的 index 来执行删除操作;
+      例如：
+      var rowIndex = $('#tableId').datagrid('getRowIndex', $('#tableId').daagrid('getSelected'));   //获得选中行的 index
+      $('#tableId').datagrid('deleteRow', rowIndex);  //删除
