@@ -1,0 +1,2 @@
+1、使用 easyUI 时，如果加载数据后，chrom 控制台报 Uncaught TypeError : Cannot read property 'slice' of null 错，
+   有可能是因为传回来的数据不是集合，解析出错，将数据封装成集合即可。
