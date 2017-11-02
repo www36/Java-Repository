@@ -1,2 +1,8 @@
 1、使用 easyUI 时，如果加载数据后，chrom 控制台报 Uncaught TypeError : Cannot read property 'slice' of null 错，
    有可能是因为传回来的数据不是集合，解析出错，将数据封装成集合即可。
+2、使用 easyUI 时，删除全部数据：
+   var rows = $('tableId').datagrid('getRows');
+   for(var i = rows.length-1; i >= 0; i--){
+      $('tableId').datagrid('deleteRow',i);
+   }
+   此方法不会受 index 的 bug 影响
