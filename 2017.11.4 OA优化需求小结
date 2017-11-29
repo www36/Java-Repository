@@ -1,1 +1,29 @@
 1、equals() 用来比较字符串内容是否相等，matches() 用来比较字符串是否符合括号内正则表达式的规则
+
+2、程序默认值有两种做法
+  ①直接定义，例如： 
+    private int xx = 12;
+    private boolean i = ture;
+  ②在 Spring 里还可以使用注解的方式修改默认值，但其实是 Spring 容器启动后修改的：
+    第一种方式：
+      @Value("${app.test.int}")
+      private int xx;
+    
+      @Value("${app.test.boolean}")
+      private boolean i;
+    
+      resources - app.properties 中作如下定义
+    
+      app.test.int = 12
+      app.test.boolean = ture
+    
+    第二种方式：
+      @Value("${app.test.int=10}")
+      private int xx;
+    
+      @Value("${app.test.boolean=false}")
+      private boolean i;
+    
+    但是要注意的是，优先级： 配置(app.properties) > Spring Value 注解 > 代码设置的值
+    所以第二种方式在删除了 app.properties 中的 app.test.int 和 app.test.boolean 两个配置后就按 @Value 中设置的默认值来运行
+    
