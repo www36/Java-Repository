@@ -1,0 +1,5 @@
+1. model 添加 @PersistEntity 注解来使用缓存，减少数据库压力，提高访问速度
+2. this.isSave = true 是在 create 、 save 时使用
+    this.isSave = false 是在 update 时使用
+    详情见 isSave;
+3. 用 super(...); 显式调用父类的 构造方法（空参/带参） 是为了防止出现 父类中没有 空参构造 而导致的 隐式调用（ super(); ）出错，所以用显式调用;
