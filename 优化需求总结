@@ -1,0 +1,16 @@
+1. long 转 int 可以用：
+    ① 强制转换：可能会出现数据溢出，因为是向下转换
+    ② 调用 intValue() 方法
+      long l = 300;
+      int i = New Long(l).intValue();
+    ③ 先把 long 转换成 Stirng, 再把 String 转换成 int
+2. JQuery 中，可以通过使用 join(分隔符) 方法来把数组中的元素变成一个字符串，通过分隔符来分割;
+  例如: var c = ['1','2','3','4'];
+        var s = c.join(",");
+        s = "1,2,3,4";
+  
+  在 Java 中也有类似功能:
+  例如: List<String> list = [1,2,3,4,5,6];
+        String str = StringUtils.join(list,",");
+        则 str = "1,2,3,4,5,6";
+3. JQuery 在数组末尾添加元素用 push()
