@@ -14,3 +14,10 @@
         String str = StringUtils.join(list,",");
         则 str = "1,2,3,4,5,6";
 3. JQuery 在数组末尾添加元素用 push()
+
+4. 生成随机数：
+    ① Random random = new Random(起始数);
+       在起始数的基础上进行变换
+    ② Math.random() * n + m;
+        可以随机生成 0+m < x < 0*n 区间内的数;
+5.
