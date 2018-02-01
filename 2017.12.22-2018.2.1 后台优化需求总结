@@ -20,4 +20,11 @@
        在起始数的基础上进行变换
     ② Math.random() * n + m;
         可以随机生成 0+m < x < 0*n 区间内的数;
-5.
+5. 批量查询JQ：
+    以用回车分隔为例
+    var contents = $('#conent').val();
+    var content = '';
+    if(contents != ''){
+        content = contents.replace(/\r\n\g,",");
+    }
+    这样得到的 content 是以逗号(,)分隔的一条字符串，剩下的还需在后台做处理;
